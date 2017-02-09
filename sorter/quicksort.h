@@ -7,8 +7,11 @@ class QuickSort: public SortAlg {
 public:
      std::vector<int> sort(std::vector<int> array);
 private:
-     std::vector<int> recSort(std::vector<int> array, int fst, int lst);
-     int partitioning(std::vector<int> array, int fst, int lst);
+     //Iterative QuickSort implementation
+     std::vector<int> iterSort(std::vector<int> array, int fst, int lst);
+     int partition(std::vector<int> *array, int fst, int lst);
+     //Chooses pivot using the Median rule
+     int getPivot(std::vector<int>& array, int fst, int lst);
 };
 
 #endif // __QUICKSORT_H__

@@ -5,12 +5,9 @@ std::vector<int> InsertionSort::sort(std::vector<int> array){
     timeb start, end;
     ftime(&start); // start timer
 
-    bool swapped;
     for(unsigned int i=1;i<array.size();i++){
         int j = i;
-        swapped = false;
         while( j>0 && array[j-1] > array[j]){
-            swapped = true;
             int temp = array[j];
             array[j] = array[j-1];
             array[j-1] = temp;
@@ -19,7 +16,6 @@ std::vector<int> InsertionSort::sort(std::vector<int> array){
             j--;
         }
         this->nComparisons += 1;
-        if(!swapped) break;
     }
 
     ftime(&end); // end timer

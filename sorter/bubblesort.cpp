@@ -8,7 +8,7 @@ std::vector<int> BubbleSort::sort(std::vector<int> array){
     bool swapped;
     do{
         swapped = false;
-        for(unsigned int i=1;i<array.size()-1;i++){
+        for(unsigned int i=1;i<array.size();i++){
             if(array[i-1] > array[i]){
                 swapped = true;
                 this->nSwaps += 1;

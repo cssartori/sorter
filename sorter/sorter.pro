@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     bubblesort.cpp \
     insertionsort.cpp \
     selectionsort.cpp \
-    quicksort.cpp
+    quicksort.cpp \
+    heapsort.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -38,6 +39,7 @@ HEADERS  += mainwindow.h \
     bubblesort.h \
     insertionsort.h \
     selectionsort.h \
-    quicksort.h
+    quicksort.h \
+    heapsort.h
 
 FORMS    += mainwindow.ui
