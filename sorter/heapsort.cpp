@@ -8,10 +8,12 @@ std::vector<int> HeapSort::sort(std::vector<int> array){
 
     this->buildHeap(&array);
     int heapSize = array.size()-1;
-    for(int i=heapSize;i>=1;i++){
+
+    for(int i=heapSize;i>=1;i--){
         int temp = array[0];
         array[0] = array[i];
         array[i] = temp;
+        this->nSwaps+=1;
         heapSize--;
         this->heapify(&array, 0, heapSize);
     }
@@ -46,8 +48,8 @@ std::vector<int>* HeapSort::heapify(std::vector<int> *array, int i, int heapSize
 }
 
 std::vector<int>* HeapSort::buildHeap(std::vector<int> *array){
-    for(int parent = (*array).size(); parent >= 0 ; parent--){
-        array = this->heapify(array, parent, (*array).size());
+    for(int parent = ((*array).size()/2); parent >= 0 ; parent--){
+        array = this->heapify(array, parent, (*array).size()-1);
     }
     return array;
 }

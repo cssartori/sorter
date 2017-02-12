@@ -52,13 +52,23 @@ SOURCES       = ../sorter/main.cpp \
 		../sorter/mainwindow.cpp \
 		../sorter/qcustomplot.cpp \
 		../sorter/sortalg.cpp \
-		../sorter/bubblesort.cpp moc_mainwindow.cpp \
+		../sorter/bubblesort.cpp \
+		../sorter/insertionsort.cpp \
+		../sorter/selectionsort.cpp \
+		../sorter/quicksort.cpp \
+		../sorter/heapsort.cpp \
+		../sorter/mergesort.cpp moc_mainwindow.cpp \
 		moc_qcustomplot.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		qcustomplot.o \
 		sortalg.o \
 		bubblesort.o \
+		insertionsort.o \
+		selectionsort.o \
+		quicksort.o \
+		heapsort.o \
+		mergesort.o \
 		moc_mainwindow.o \
 		moc_qcustomplot.o
 DIST          = ../../Qt5.8.0/5.8/gcc_64/mkspecs/features/spec_pre.prf \
@@ -234,11 +244,21 @@ DIST          = ../../Qt5.8.0/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		../sorter/sorter.pro ../sorter/mainwindow.h \
 		../sorter/qcustomplot.h \
 		../sorter/sortalg.h \
-		../sorter/bubblesort.h ../sorter/main.cpp \
+		../sorter/bubblesort.h \
+		../sorter/insertionsort.h \
+		../sorter/selectionsort.h \
+		../sorter/quicksort.h \
+		../sorter/heapsort.h \
+		../sorter/mergesort.h ../sorter/main.cpp \
 		../sorter/mainwindow.cpp \
 		../sorter/qcustomplot.cpp \
 		../sorter/sortalg.cpp \
-		../sorter/bubblesort.cpp
+		../sorter/bubblesort.cpp \
+		../sorter/insertionsort.cpp \
+		../sorter/selectionsort.cpp \
+		../sorter/quicksort.cpp \
+		../sorter/heapsort.cpp \
+		../sorter/mergesort.cpp
 QMAKE_TARGET  = sorter
 DESTDIR       = 
 TARGET        = sorter
@@ -616,8 +636,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt5.8.0/5.8/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../sorter/mainwindow.h ../sorter/qcustomplot.h ../sorter/sortalg.h ../sorter/bubblesort.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../sorter/main.cpp ../sorter/mainwindow.cpp ../sorter/qcustomplot.cpp ../sorter/sortalg.cpp ../sorter/bubblesort.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../sorter/mainwindow.h ../sorter/qcustomplot.h ../sorter/sortalg.h ../sorter/bubblesort.h ../sorter/insertionsort.h ../sorter/selectionsort.h ../sorter/quicksort.h ../sorter/heapsort.h ../sorter/mergesort.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../sorter/main.cpp ../sorter/mainwindow.cpp ../sorter/qcustomplot.cpp ../sorter/sortalg.cpp ../sorter/bubblesort.cpp ../sorter/insertionsort.cpp ../sorter/selectionsort.cpp ../sorter/quicksort.cpp ../sorter/heapsort.cpp ../sorter/mergesort.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../sorter/mainwindow.ui $(DISTDIR)/
 
 
@@ -1870,7 +1890,11 @@ main.o: ../sorter/main.cpp ../sorter/mainwindow.h \
 		../../Qt5.8.0/5.8/gcc_64/include/QtGui/qguiapplication.h \
 		../../Qt5.8.0/5.8/gcc_64/include/QtGui/qinputmethod.h \
 		../sorter/bubblesort.h \
-		../sorter/sortalg.h
+		../sorter/sortalg.h \
+		../sorter/insertionsort.h \
+		../sorter/selectionsort.h \
+		../sorter/quicksort.h \
+		../sorter/heapsort.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../sorter/main.cpp
 
 mainwindow.o: ../sorter/mainwindow.cpp ../sorter/mainwindow.h \
@@ -2870,6 +2894,26 @@ sortalg.o: ../sorter/sortalg.cpp ../sorter/sortalg.h
 bubblesort.o: ../sorter/bubblesort.cpp ../sorter/bubblesort.h \
 		../sorter/sortalg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bubblesort.o ../sorter/bubblesort.cpp
+
+insertionsort.o: ../sorter/insertionsort.cpp ../sorter/insertionsort.h \
+		../sorter/sortalg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o insertionsort.o ../sorter/insertionsort.cpp
+
+selectionsort.o: ../sorter/selectionsort.cpp ../sorter/selectionsort.h \
+		../sorter/sortalg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o selectionsort.o ../sorter/selectionsort.cpp
+
+quicksort.o: ../sorter/quicksort.cpp ../sorter/quicksort.h \
+		../sorter/sortalg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o quicksort.o ../sorter/quicksort.cpp
+
+heapsort.o: ../sorter/heapsort.cpp ../sorter/heapsort.h \
+		../sorter/sortalg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o heapsort.o ../sorter/heapsort.cpp
+
+mergesort.o: ../sorter/mergesort.cpp ../sorter/mergesort.h \
+		../sorter/sortalg.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mergesort.o ../sorter/mergesort.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

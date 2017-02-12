@@ -7,7 +7,7 @@ std::vector<int> QuickSort::sort(std::vector<int> array){
     timeb start, end;
     ftime(&start); // start timer
 
-    array = this->iterSort(array, 0, array.size()-1);
+    this->iterSort(&array, 0, array.size()-1);
 
     ftime(&end); // end timer
     this->time = (end.time - start.time)*1000;
@@ -17,34 +17,27 @@ std::vector<int> QuickSort::sort(std::vector<int> array){
 }
 
 //Iterative QuickSort implementation
-std::vector<int> QuickSort::iterSort(std::vector<int> array, int fst, int lst){
+std::vector<int>* QuickSort::iterSort(std::vector<int> *array, int low, int high){
     std::stack< std::pair<int,int> > stk;
-    stk.push(std::make_pair(fst, lst));
+    stk.push(std::make_pair(low, high));
 
     do{
-        fst = stk.top().first;
-        lst = stk.top().second;
+        low = stk.top().first;
+        high = stk.top().second;
         stk.pop();
-        int pivot = this->partition(&array, fst, lst);
-        if(pivot+1 < lst)
-            stk.push(std::make_pair(pivot+1, lst));
-        else if(pivot-1 > fst)
-            stk.push(std::make_pair(fst, pivot-1));
+        int pivot = this->partition(array, low, high);
+        if(pivot+1 < high)
+            stk.push(std::make_pair(pivot+1, high));
+        if(pivot-1 > low)
+            stk.push(std::make_pair(low, pivot-1));
     }while(stk.size() > 0);
 
     return array;
 }
 
-int QuickSort::partition(std::vector<int> *array, int fst, int lst){
-    int pivot = this->getPivot(*array, fst, lst); //pivot index
-    int k=fst, j=lst; //two indexes to read the array (k for values less than pivot, and j for values bigger than pivot)
-
-    printf("Array from %i to %i\nNot Ordered - %i:\n", fst, lst, pivot);
-    for(int i=fst;i<=lst;i++){
-        printf("%i, ", (*array)[i]);
-    }
-
-
+int QuickSort::partition(std::vector<int> *array, int low, int high){
+    int pivot = this->getPivot(*array, low, high); //pivot index
+    int k=low, j=high; //two indexes to read the array (k for values less than pivot, and j for values bigger than pivot)
 
     while(k < pivot || j > pivot){
         if((*array)[k] > (*array)[j]){
@@ -52,34 +45,30 @@ int QuickSort::partition(std::vector<int> *array, int fst, int lst){
             (*array)[k] = (*array)[j];
             (*array)[j] = temp;
             this->nSwaps+=1;
-            this->nComparisons+=1;
             if(j == pivot) pivot = k;
             else if(k == pivot) pivot = j;
         }
+        this->nComparisons+=1;
         if(k < pivot) k++;
         if(j > pivot) j--;
-        printf("Pivot now is %i\n", pivot);
-    }
-   printf("\nOrdered - %i:\n", pivot);
-    for(int i=fst;i<=lst;i++){
-        printf("%i, ", (*array)[i]);
     }
 
-    printf("\n");
     return pivot; //return the pivot index
 }
 
 //Chooses pivot using the Median rule
-int QuickSort::getPivot(std::vector<int>& array, int fst, int lst){
-    if(lst - fst < 3) //less than 3 elements in sub-array
-        return lst;
+int QuickSort::getPivot(std::vector<int>& array, int low, int high){
+    if(high - low < 3) //less than 3 elements in sub-array
+        return high;
 
-    int m = (fst+lst)/2;
+    int m = (low+high)/2;
 
-    if(array[fst] <= array[m] && array[m] <= array[lst])
+    if(array[low] <= array[m] && array[m] <= array[high])
         return m;
-    else if(array[m] <= array[fst] && array[fst] <= array[lst])
-        return fst;
+    else if(array[m] <= array[low] && array[low] <= array[high])
+        return low;
+    else if(array[high] <= array[low] && array[low] <= array[m])
+        return low;
     else
-        return lst;
+        return high;
 }

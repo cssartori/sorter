@@ -4,6 +4,8 @@
 #include "insertionsort.h"
 #include "selectionsort.h"
 #include "quicksort.h"
+#include "heapsort.h"
+#include "mergesort.h"
 
 bool checkSorted(std::vector<int> array){
     for(int i=0;i<array.size();i++){
@@ -26,8 +28,8 @@ void printArray(std::vector<int> array){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QuickSort s;
-    std::vector<int> array = {1,6,5,2,3,9,8,0,4,7};
+    MergeSort s;
+    std::vector<int> array = {1,4,6,8,5,2,0,7,9,3};
     array = s.sort(array);
 
     printArray(array);

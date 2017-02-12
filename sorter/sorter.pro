@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     insertionsort.cpp \
     selectionsort.cpp \
     quicksort.cpp \
-    heapsort.cpp
+    heapsort.cpp \
+    mergesort.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -40,6 +41,7 @@ HEADERS  += mainwindow.h \
     insertionsort.h \
     selectionsort.h \
     quicksort.h \
-    heapsort.h
+    heapsort.h \
+    mergesort.h
 
 FORMS    += mainwindow.ui
