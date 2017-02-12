@@ -12,7 +12,6 @@ std::vector<int> QuickSort::sort(std::vector<int> array){
     ftime(&end); // end timer
     this->time = (end.time - start.time)*1000;
     this->time=(this->time+end.millitm-start.millitm)/1000;
-
     return array;
 }
 

@@ -3,7 +3,7 @@
 
 #include "sortalg.h"
 
-class MergeSort: SortAlg{
+class MergeSort: public SortAlg{
 public:
     std::vector<int> sort(std::vector<int> array);
 

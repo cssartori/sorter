@@ -1,11 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "bubblesort.h"
-#include "insertionsort.h"
-#include "selectionsort.h"
-#include "quicksort.h"
-#include "heapsort.h"
-#include "mergesort.h"
+#include "sorter.h"
 
 bool checkSorted(std::vector<int> array){
     for(int i=0;i<array.size();i++){
@@ -28,18 +23,23 @@ void printArray(std::vector<int> array){
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MergeSort s;
-    std::vector<int> array = {1,4,6,8,5,2,0,7,9,3};
-    array = s.sort(array);
+//    std::vector<int> array = {1,4,6,8,5,2,0,7,9,3};
+//    std::vector<int> pd = {5, 10};
+//    Sorter s(Sorter::QUICK_SORT, Sorter::HEAP_SORT, array, pd);
+//    s.start();
 
-    printArray(array);
+//    s.wait();
 
-    if(!checkSorted(array)){
-        printf("Bad Sorting Method... BSM\n");
-        exit(-1);
-    }else{
-        printf("Good Sorting Method!\n");
-    }
+//    printf("time[5] = %.2f | %.2f\nswaps[5] = %i | %i\ncomp[5] = %i | %i\n", s.getTimes().first[0], s.getTimes().second[0], s.getSwaps().first[0], s.getSwaps().second[0], s.getComparisons().first[0], s.getComparisons().second[0]);
+
+//    printArray(array);
+
+//    if(!checkSorted(array)){
+//        printf("Bad Sorting Method... BSM\n");
+//        exit(-1);
+//    }else{
+//        printf("Good Sorting Method!\n");
+//    }
 
     MainWindow w;
     w.show();

@@ -39,22 +39,22 @@ public:
     QAction *let_esp;
     QAction *about_2;
     QWidget *centralWidget;
-    QComboBox *alglist_2;
-    QLabel *label;
-    QLabel *label_2;
-    QPushButton *btn_compara;
-    QComboBox *vetlist;
-    QLabel *label_3;
+    QLabel *alg1Label;
+    QLabel *alg2Label;
+    QPushButton *compareBtn;
+    QComboBox *vectorList;
+    QLabel *vectorLabel;
     QGroupBox *graphicGroup;
     QRadioButton *timeRBtn;
     QRadioButton *swapsRBtn;
     QRadioButton *compareRBtn;
-    QCustomPlot *widget;
-    QComboBox *alglist_3;
+    QCustomPlot *graphic;
+    QComboBox *algList1;
     QProgressBar *progressBar;
-    QLabel *label_4;
+    QLabel *calcLabel;
+    QComboBox *algList2;
     QMenuBar *menuBar;
-    QMenu *menuOp_es;
+    QMenu *menuOptions;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -82,25 +82,22 @@ public:
         about_2->setObjectName(QStringLiteral("about_2"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        alglist_2 = new QComboBox(centralWidget);
-        alglist_2->setObjectName(QStringLiteral("alglist_2"));
-        alglist_2->setGeometry(QRect(160, 350, 101, 22));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(20, 330, 121, 16));
-        label_2 = new QLabel(centralWidget);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(160, 330, 121, 16));
-        btn_compara = new QPushButton(centralWidget);
-        btn_compara->setObjectName(QStringLiteral("btn_compara"));
-        btn_compara->setGeometry(QRect(480, 340, 101, 81));
-        vetlist = new QComboBox(centralWidget);
-        vetlist->setObjectName(QStringLiteral("vetlist"));
-        vetlist->setGeometry(QRect(300, 350, 161, 22));
-        vetlist->setMaxVisibleItems(3);
-        label_3 = new QLabel(centralWidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(300, 330, 121, 16));
+        alg1Label = new QLabel(centralWidget);
+        alg1Label->setObjectName(QStringLiteral("alg1Label"));
+        alg1Label->setGeometry(QRect(20, 330, 121, 16));
+        alg2Label = new QLabel(centralWidget);
+        alg2Label->setObjectName(QStringLiteral("alg2Label"));
+        alg2Label->setGeometry(QRect(160, 330, 121, 16));
+        compareBtn = new QPushButton(centralWidget);
+        compareBtn->setObjectName(QStringLiteral("compareBtn"));
+        compareBtn->setGeometry(QRect(480, 340, 101, 81));
+        vectorList = new QComboBox(centralWidget);
+        vectorList->setObjectName(QStringLiteral("vectorList"));
+        vectorList->setGeometry(QRect(300, 350, 161, 22));
+        vectorList->setMaxVisibleItems(3);
+        vectorLabel = new QLabel(centralWidget);
+        vectorLabel->setObjectName(QStringLiteral("vectorLabel"));
+        vectorLabel->setGeometry(QRect(300, 330, 121, 16));
         graphicGroup = new QGroupBox(centralWidget);
         graphicGroup->setObjectName(QStringLiteral("graphicGroup"));
         graphicGroup->setGeometry(QRect(20, 10, 561, 301));
@@ -115,12 +112,12 @@ public:
         compareRBtn = new QRadioButton(graphicGroup);
         compareRBtn->setObjectName(QStringLiteral("compareRBtn"));
         compareRBtn->setGeometry(QRect(10, 150, 121, 17));
-        widget = new QCustomPlot(graphicGroup);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(150, 30, 401, 261));
-        alglist_3 = new QComboBox(centralWidget);
-        alglist_3->setObjectName(QStringLiteral("alglist_3"));
-        alglist_3->setGeometry(QRect(20, 350, 101, 22));
+        graphic = new QCustomPlot(graphicGroup);
+        graphic->setObjectName(QStringLiteral("graphic"));
+        graphic->setGeometry(QRect(150, 30, 401, 261));
+        algList1 = new QComboBox(centralWidget);
+        algList1->setObjectName(QStringLiteral("algList1"));
+        algList1->setGeometry(QRect(20, 350, 101, 22));
         progressBar = new QProgressBar(centralWidget);
         progressBar->setObjectName(QStringLiteral("progressBar"));
         progressBar->setGeometry(QRect(20, 400, 321, 23));
@@ -128,36 +125,39 @@ public:
         progressBar->setTextVisible(true);
         progressBar->setInvertedAppearance(false);
         progressBar->setTextDirection(QProgressBar::TopToBottom);
-        label_4 = new QLabel(centralWidget);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(20, 380, 181, 16));
+        calcLabel = new QLabel(centralWidget);
+        calcLabel->setObjectName(QStringLiteral("calcLabel"));
+        calcLabel->setGeometry(QRect(20, 380, 181, 16));
+        algList2 = new QComboBox(centralWidget);
+        algList2->setObjectName(QStringLiteral("algList2"));
+        algList2->setGeometry(QRect(160, 350, 101, 22));
         MainWindow->setCentralWidget(centralWidget);
         graphicGroup->raise();
-        alglist_2->raise();
-        label->raise();
-        label_2->raise();
-        btn_compara->raise();
-        vetlist->raise();
-        label_3->raise();
-        alglist_3->raise();
+        alg1Label->raise();
+        alg2Label->raise();
+        compareBtn->raise();
+        vectorList->raise();
+        vectorLabel->raise();
+        algList1->raise();
         progressBar->raise();
-        label_4->raise();
+        calcLabel->raise();
+        algList2->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 602, 22));
-        menuOp_es = new QMenu(menuBar);
-        menuOp_es->setObjectName(QStringLiteral("menuOp_es"));
+        menuOptions = new QMenu(menuBar);
+        menuOptions->setObjectName(QStringLiteral("menuOptions"));
         MainWindow->setMenuBar(menuBar);
 
-        menuBar->addAction(menuOp_es->menuAction());
-        menuOp_es->addAction(clearPlot);
-        menuOp_es->addAction(saveastxt);
-        menuOp_es->addAction(about_2);
-        menuOp_es->addAction(exitAction_2);
+        menuBar->addAction(menuOptions->menuAction());
+        menuOptions->addAction(clearPlot);
+        menuOptions->addAction(saveastxt);
+        menuOptions->addAction(about_2);
+        menuOptions->addAction(exitAction_2);
 
         retranslateUi(MainWindow);
 
-        vetlist->setCurrentIndex(0);
+        vectorList->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -180,37 +180,16 @@ public:
         let_esp->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", Q_NULLPTR));
         about_2->setText(QApplication::translate("MainWindow", "Sobre...", Q_NULLPTR));
         about_2->setShortcut(QApplication::translate("MainWindow", "Ctrl+O", Q_NULLPTR));
-        alglist_2->clear();
-        alglist_2->insertItems(0, QStringList()
-         << QString()
-         << QApplication::translate("MainWindow", "1. Bubblesort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "2. Quicksort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "3. Insertionsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "4. Selectionsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "5. Heapsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "6. Mergesort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "7. Countingsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "8. Bucketsort", Q_NULLPTR)
-        );
+        alg1Label->setText(QApplication::translate("MainWindow", "Algorithm 1:", Q_NULLPTR));
+        alg2Label->setText(QApplication::translate("MainWindow", "Algorithm 2:", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        alglist_2->setToolTip(QApplication::translate("MainWindow", "Algoritmo 2 a ser comparado", Q_NULLPTR));
+        compareBtn->setToolTip(QApplication::translate("MainWindow", "Comparar algoritmos selecionados", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        label->setText(QApplication::translate("MainWindow", "Algoritmo 1:", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindow", "Algoritmo 2:", Q_NULLPTR));
+        compareBtn->setText(QApplication::translate("MainWindow", "Compare", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        btn_compara->setToolTip(QApplication::translate("MainWindow", "Comparar algoritmos selecionados", Q_NULLPTR));
+        vectorList->setToolTip(QApplication::translate("MainWindow", "Ordena\303\247\303\243o do vetor a ser ordenado", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        btn_compara->setText(QApplication::translate("MainWindow", "Comparar", Q_NULLPTR));
-        vetlist->clear();
-        vetlist->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "1. Vetor ordem crescente", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "2. Vetor ordem decrescente", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "3. Vetor aleat\303\263rio", Q_NULLPTR)
-        );
-#ifndef QT_NO_TOOLTIP
-        vetlist->setToolTip(QApplication::translate("MainWindow", "Ordena\303\247\303\243o do vetor a ser ordenado", Q_NULLPTR));
-#endif // QT_NO_TOOLTIP
-        label_3->setText(QApplication::translate("MainWindow", "Formato do vetor:", Q_NULLPTR));
+        vectorLabel->setText(QApplication::translate("MainWindow", "Vector order:", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
         graphicGroup->setToolTip(QString());
 #endif // QT_NO_TOOLTIP
@@ -218,23 +197,22 @@ public:
         timeRBtn->setText(QApplication::translate("MainWindow", "Time", Q_NULLPTR));
         swapsRBtn->setText(QApplication::translate("MainWindow", "Swaps", Q_NULLPTR));
         compareRBtn->setText(QApplication::translate("MainWindow", "Comparissons", Q_NULLPTR));
-        alglist_3->clear();
-        alglist_3->insertItems(0, QStringList()
+        algList1->clear();
+        algList1->insertItems(0, QStringList()
          << QString()
-         << QApplication::translate("MainWindow", "1. Bubblesort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "2. Quicksort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "3. Insertionsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "4. Selectionsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "5. Heapsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "6. Mergesort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "7. Countingsort", Q_NULLPTR)
-         << QApplication::translate("MainWindow", "8. Bucketsort", Q_NULLPTR)
         );
 #ifndef QT_NO_TOOLTIP
-        alglist_3->setToolTip(QApplication::translate("MainWindow", "Algoritmo 1 a ser comparado", Q_NULLPTR));
+        algList1->setToolTip(QApplication::translate("MainWindow", "Algoritmo 1 a ser comparado", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
-        label_4->setText(QApplication::translate("MainWindow", "Porcentagem de c\303\241lculos realizada:", Q_NULLPTR));
-        menuOp_es->setTitle(QApplication::translate("MainWindow", "Op\303\247\303\265es", Q_NULLPTR));
+        calcLabel->setText(QApplication::translate("MainWindow", "Calculations done:", Q_NULLPTR));
+        algList2->clear();
+        algList2->insertItems(0, QStringList()
+         << QString()
+        );
+#ifndef QT_NO_TOOLTIP
+        algList2->setToolTip(QApplication::translate("MainWindow", "Algoritmo 1 a ser comparado", Q_NULLPTR));
+#endif // QT_NO_TOOLTIP
+        menuOptions->setTitle(QApplication::translate("MainWindow", "Options", Q_NULLPTR));
     } // retranslateUi
 
 };
