@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(this->signaler, SIGNAL(calcDone()), this, SLOT(on_signaler_calcDone()));
 
     this->xPoints = std::vector<double>(vSizes.begin(), vSizes.end());
+    this->xPoints.insert(this->xPoints.begin(), 0);
 }
 
 MainWindow::~MainWindow() {
@@ -48,6 +49,7 @@ void MainWindow::on_compareBtn_clicked() {
 
     this->ui->progressBar->setValue(0);
 
+    this->clearGraphic();
     this->sorter->start(); //start sorter thread
 
 }
@@ -61,6 +63,9 @@ void MainWindow::on_signaler_calcDone(){
 void MainWindow::setupGraphic(std::vector<double> a1, std::vector<double> a2, std::string a1Name, std::string a2Name, int option){
     this->ui->graphic->addGraph();
     this->ui->graphic->addGraph();
+
+    a1.insert(a1.begin(), 0);
+    a2.insert(a2.begin(), 0);
 
     this->ui->graphic->graph(0)->setData(QVector<double>::fromStdVector(this->xPoints), QVector<double>::fromStdVector(a1));
     this->ui->graphic->graph(1)->setData(QVector<double>::fromStdVector(this->xPoints), QVector<double>::fromStdVector(a2));
@@ -95,9 +100,13 @@ void MainWindow::setupGraphic(std::vector<double> a1, std::vector<double> a2, st
 void MainWindow::clearGraphic(){
     this->ui->graphic->clearGraphs();
     this->ui->graphic->clearItems();
+    this->ui->graphic->legend->setVisible(false);
+    this->ui->graphic->xAxis->setLabel("");
+    this->ui->graphic->yAxis->setLabel("");
     this->ui->timeRBtn->setChecked(false);
     this->ui->compareRBtn->setChecked(false);
     this->ui->swapsRBtn->setChecked(false);
+    this->ui->graphic->replot();
 }
 
 std::vector<int> MainWindow::loadVector(){
@@ -143,28 +152,25 @@ void MainWindow::on_signaler_percentChanged(double percent){
 }
 
 void MainWindow::on_timeRBtn_clicked() {
-    if(this->sorter == nullptr)
+    if(this->sorter == nullptr || this->sorter->isRunning())
         return;
 
-    this->clearGraphic();
     this->ui->timeRBtn->setChecked(true);
     this->setupGraphic(this->sorter->getTimes().first, this->sorter->getTimes().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->TIMES_PLOT_OPTION);
 }
 
 void MainWindow::on_swapsRBtn_clicked() {
-    if(this->sorter == nullptr)
+    if(this->sorter == nullptr || this->sorter->isRunning())
         return;
 
-    this->clearGraphic();
     this->ui->swapsRBtn->setChecked(true);
     this->setupGraphic(this->sorter->getSwaps().first, this->sorter->getSwaps().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->SWAPS_PLOT_OPTION);
 }
 
 void MainWindow::on_compareRBtn_clicked() {
-    if(this->sorter == nullptr)
+    if(this->sorter == nullptr || this->sorter->isRunning())
         return;
 
-    this->clearGraphic();
     this->ui->compareRBtn->setChecked(true);
     this->setupGraphic(this->sorter->getComparisons().first, this->sorter->getComparisons().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->COMPS_PLOT_OPTION);
 }
