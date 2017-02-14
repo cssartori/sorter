@@ -15,9 +15,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     for(int i=0;i<this->VEC_NAMES.size();i++)
         this->ui->vectorList->addItem(this->VEC_NAMES[i].c_str());
 
+    this->signaler = new SorterSignaler();
+    connect(this->signaler, SIGNAL(percentChanged(double)), this, SLOT(on_signaler_percentChanged(double)));
+    connect(this->signaler, SIGNAL(calcDone()), this, SLOT(on_signaler_calcDone()));
 
-    connect(this->sorter, SIGNAL(calcPercentChanged(double)), this, SLOT(on_calc_percent_update(double)));
-
+    this->xPoints = std::vector<double>(vSizes.begin(), vSizes.end());
 }
 
 MainWindow::~MainWindow() {
@@ -42,12 +44,60 @@ void MainWindow::on_compareBtn_clicked() {
     }
 
     std::vector<int> array = this->loadVector();
-    this->sorter = new Sorter(alg1, alg2, array, vSizes);
+    this->sorter = new Sorter(alg1, alg2, array, vSizes, this->signaler);
 
     this->ui->progressBar->setValue(0);
 
     this->sorter->start(); //start sorter thread
 
+}
+
+void MainWindow::on_signaler_calcDone(){
+    this->clearGraphic();
+    this->on_timeRBtn_clicked();
+}
+
+
+void MainWindow::setupGraphic(std::vector<double> a1, std::vector<double> a2, std::string a1Name, std::string a2Name, int option){
+    this->ui->graphic->addGraph();
+    this->ui->graphic->addGraph();
+
+    this->ui->graphic->graph(0)->setData(QVector<double>::fromStdVector(this->xPoints), QVector<double>::fromStdVector(a1));
+    this->ui->graphic->graph(1)->setData(QVector<double>::fromStdVector(this->xPoints), QVector<double>::fromStdVector(a2));
+
+    this->ui->graphic->graph(0)->addToLegend();
+    this->ui->graphic->graph(1)->addToLegend();
+
+    this->ui->graphic->graph(0)->setName(QString::fromStdString(a1Name));
+    this->ui->graphic->graph(1)->setName(QString::fromStdString(a2Name));
+
+    this->ui->graphic->graph(0)->setPen(QPen(Qt::black));
+    this->ui->graphic->graph(1)->setPen(QPen(Qt::red));
+
+    this->ui->graphic->legend->setVisible(true);
+    this->ui->graphic->axisRect()->insetLayout()->setInsetAlignment(0, Qt::AlignLeft|Qt::AlignTop);
+
+    this->ui->graphic->xAxis->setLabel("Vector Size");
+
+    std::string ylabel;
+    if(option == MainWindow::TIMES_PLOT_OPTION)
+        ylabel = "Execution Time (sec.)";
+    else if(option == MainWindow::SWAPS_PLOT_OPTION)
+        ylabel = "Number of Swaps";
+    else
+        ylabel = "Number of Comparisons";
+    this->ui->graphic->yAxis->setLabel(QString::fromStdString(ylabel));
+
+    this->ui->graphic->rescaleAxes();
+    this->ui->graphic->replot();
+}
+
+void MainWindow::clearGraphic(){
+    this->ui->graphic->clearGraphs();
+    this->ui->graphic->clearItems();
+    this->ui->timeRBtn->setChecked(false);
+    this->ui->compareRBtn->setChecked(false);
+    this->ui->swapsRBtn->setChecked(false);
 }
 
 std::vector<int> MainWindow::loadVector(){
@@ -88,6 +138,33 @@ std::vector<int> MainWindow::loadVector(){
     return array;
 }
 
-void MainWindow::on_calc_percent_update(double percent){
+void MainWindow::on_signaler_percentChanged(double percent){
     this->ui->progressBar->setValue(percent);
+}
+
+void MainWindow::on_timeRBtn_clicked() {
+    if(this->sorter == nullptr)
+        return;
+
+    this->clearGraphic();
+    this->ui->timeRBtn->setChecked(true);
+    this->setupGraphic(this->sorter->getTimes().first, this->sorter->getTimes().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->TIMES_PLOT_OPTION);
+}
+
+void MainWindow::on_swapsRBtn_clicked() {
+    if(this->sorter == nullptr)
+        return;
+
+    this->clearGraphic();
+    this->ui->swapsRBtn->setChecked(true);
+    this->setupGraphic(this->sorter->getSwaps().first, this->sorter->getSwaps().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->SWAPS_PLOT_OPTION);
+}
+
+void MainWindow::on_compareRBtn_clicked() {
+    if(this->sorter == nullptr)
+        return;
+
+    this->clearGraphic();
+    this->ui->compareRBtn->setChecked(true);
+    this->setupGraphic(this->sorter->getComparisons().first, this->sorter->getComparisons().second, this->SORT_NAMES[this->sorter->getAlgs().first], this->SORT_NAMES[this->sorter->getAlgs().second], this->COMPS_PLOT_OPTION);
 }

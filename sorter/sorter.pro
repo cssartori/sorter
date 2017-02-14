@@ -47,6 +47,7 @@ HEADERS  += mainwindow.h \
     mergesort.h \
     countingsort.h \
     sorter.h \
-    constants.h
+    constants.h \
+    sortersignaler.h
 
 FORMS    += mainwindow.ui

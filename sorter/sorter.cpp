@@ -8,11 +8,12 @@
 #include "countingsort.h"
 
 
-Sorter::Sorter(int algorithm1, int algorithm2, std::vector<int> array, const std::vector<int>& pointDistribution) {
+Sorter::Sorter(int algorithm1, int algorithm2, std::vector<int> array, const std::vector<int>& pointDistribution, SorterSignaler *signaler) {
     this->alg1 = algorithm1;
     this->alg2 = algorithm2;
     this->array = array;
     this->pointDistribution = pointDistribution;
+    this->signaler = signaler;
 }
 
 void Sorter::run(){
@@ -29,11 +30,13 @@ void Sorter::run(){
 
         alg1->sort(*array);
         percent += pCalc;
-        emit calcPercentChanged(percent);
+        if(this->signaler != nullptr)
+            this->signaler->updateCalcPercent(percent);
 
         alg2->sort(*array);
         percent += pCalc;
-        emit calcPercentChanged(percent);
+        if(this->signaler != nullptr)
+            this->signaler->updateCalcPercent(percent);
 
         delete array;
 
@@ -46,7 +49,11 @@ void Sorter::run(){
         this->compA2.push_back(alg2->getnComparisons());
     }
 
-    emit calcPercentChanged(100);
+    if(this->signaler != nullptr)
+        this->signaler->updateCalcPercent(100);
+
+    if(this->signaler != nullptr)
+        this->signaler->calculationDone();
 }
 
 
@@ -83,11 +90,14 @@ std::pair< std::vector<double>, std::vector<double> > Sorter::getTimes(){
     return std::make_pair(this->timeA1, this->timeA2);
 }
 
-std::pair< std::vector<int>, std::vector<int> > Sorter::getSwaps(){
+std::pair< std::vector<double>, std::vector<double> > Sorter::getSwaps(){
     return std::make_pair(this->swapsA1, this->swapsA2);
 }
 
-std::pair< std::vector<int>, std::vector<int> > Sorter::getComparisons(){
+std::pair< std::vector<double>, std::vector<double> > Sorter::getComparisons(){
     return std::make_pair(this->compA1, this->compA2);
 }
 
+std::pair<int, int> Sorter::getAlgs(){
+    return std::make_pair(this->alg1, this->alg2);
+}
