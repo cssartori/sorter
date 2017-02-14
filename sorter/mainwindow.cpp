@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(this->signaler, SIGNAL(percentChanged(double)), this, SLOT(on_signaler_percentChanged(double)));
     connect(this->signaler, SIGNAL(calcDone()), this, SLOT(on_signaler_calcDone()));
     connect(this->ui->clearGraphicOpt, SIGNAL(triggered(bool)), this, SLOT(on_clearGraphicOpt_triggered(bool)));
+    connect(this->ui->aboutOpt, SIGNAL(triggered(bool)), this, SLOT(on_aboutOpt_triggered(bool)));
+    connect(this->ui->exitOpt, SIGNAL(triggered(bool)), this, SLOT(on_exitOpt_triggered(bool)));
 
 
     this->xPoints = std::vector<double>(vSizes.begin(), vSizes.end());
@@ -221,7 +223,7 @@ void MainWindow::on_clearGraphicOpt_triggered(bool){
 
 void MainWindow::on_saveTxtOpt_triggered(bool){
     if(this->sorter == nullptr || this->sorter->isAborted() || this->sorter->isRunning()){
-        //TODO: Error message
+        InfoMessage::processRunningErrorMsg(this);
         return;
     }
 
@@ -239,18 +241,18 @@ void MainWindow::on_saveTxtOpt_triggered(bool){
 
     if(a1Name != ""){
         filename = a1Name;
-        char a1o[5000];
+        char a1o[10000] = "";
         for(int i=0;i<vSizes.size();i++){
-            sprintf(a1o, "%i \t\t %.2f \t\t %.2f \t\t %.2f\n", vSizes[i], this->sorter->getTimes().first[i], this->sorter->getSwaps().first[i], this->sorter->getComparisons().first[i]);
+            sprintf(a1o, "%s%i \t\t %.2f \t\t %.2f x 10^6 \t\t %.2f x 10^6\n", a1o, vSizes[i], this->sorter->getTimes().first[i], this->sorter->getSwaps().first[i], this->sorter->getComparisons().first[i]);
         }
         a1Out = a1o;
     }
 
     if(a2Name != ""){
         filename = a2Name;
-        char a2o[5000];
+        char a2o[10000] = "";
         for(int i=0;i<vSizes.size();i++){
-            sprintf(a2o, "%i \t\t %.2f \t\t %.2f \t\t %.2f\n", vSizes[i], this->sorter->getTimes().second[i], this->sorter->getSwaps().second[i], this->sorter->getComparisons().second[i]);
+            sprintf(a2o, "%s%i \t\t\t %.2f \t\t\t %.2f x 10^6 \t\t\t %.2f x 10^6\n", a2o, vSizes[i], this->sorter->getTimes().second[i], this->sorter->getSwaps().second[i], this->sorter->getComparisons().second[i]);
         }
         a2Out = a2o;
     }
@@ -277,29 +279,35 @@ void MainWindow::on_saveTxtOpt_triggered(bool){
 
     FILE *file = fopen(filename.c_str(), "wt");
     if(!file){
-        //TODO: error message
+        InfoMessage::createFileErrorMsg(this, QString::fromStdString(filename));
         return;
     }
 
     fprintf(file, "Test: %s\nDate: %s\nVector Type: %s\n", title.c_str(), asctime (timeinfo), vecTypeName.c_str());
     if(a1Name != ""){
         fprintf(file, "\nAlgorithm: %s\n", a1Name.c_str());
-        fprintf(file, "\n\t\tTime (sec.)\t\tNum. of Swaps (x10^6)\t\tNum. of Comparisons (x10^6)\n");
+        fprintf(file, "\n\t\tTime (sec.)\t\tNum. of Swaps\t\tNum. of Comparisons\n");
         fprintf(file, "%s", a1Out.c_str());
     }
     if(a2Name != ""){
         fprintf(file, "\nAlgorithm: %s\n", a2Name.c_str());
-        fprintf(file, "\n\t\tTime (sec.)\t\tNum. of Swaps (x10^6)\t\tNum. of Comparisons (x10^6)\n");
+        fprintf(file, "\n\t\tTime (sec.)\t\tNum. of Swaps\t\tNum. of Comparisons\n");
         fprintf(file, "%s", a2Out.c_str());
     }
 
     fclose(file);
+
+    InfoMessage::fileSavedMsg(this, QString::fromStdString(filename));
 }
 
 void MainWindow::on_aboutOpt_triggered(bool){
-
+    InfoMessage::aboutSorterMsg(this);
 }
 
 void MainWindow::on_exitOpt_triggered(bool){
+    if(this->sorter != nullptr && this->sorter->isRunning()){
+        this->sorter->abortSorter();
+    }
 
+    this->close();
 }

@@ -12,8 +12,8 @@ const static int ORDERED_VECTOR_MAX_MIN = 2;
 const static int RANDOM_VECTOR = 3;
 
 //File names
-const static std::string ORDERED_VECTOR_FILENAME = "ordered_vec.bin";
-const static std::string RANDOM_VECTOR_FILENAME = "random_vec.bin";
+const static std::string ORDERED_VECTOR_FILENAME = "../vectors/ordered_vec.bin";
+const static std::string RANDOM_VECTOR_FILENAME = "../vectors/random_vec.bin";
 
 //Graphic points
 const static std::vector<int> vSizes = {10, 100, 500, 1000, 5000, 10000, 25000, 50000, 75000, 100000};
