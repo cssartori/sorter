@@ -12,8 +12,8 @@
 
 class SortAlg {
 protected:
-    int nSwaps; //number of swaps executed
-    int nComparisons; //number of comparisons executed
+    unsigned int nSwaps; //number of swaps executed
+    unsigned int nComparisons; //number of comparisons executed
     double time; //the ellapsed time
 
 public:
@@ -21,8 +21,8 @@ public:
     //pure virtual method (=0) to be implemented
     virtual std::vector<int> sort(std::vector<int> array) = 0;
 
-    int getnSwaps();
-    int getnComparisons();
+    unsigned int getnSwaps();
+    unsigned int getnComparisons();
     double getTime();
 
 };

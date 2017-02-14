@@ -59,9 +59,9 @@
     <property name="geometry">
      <rect>
       <x>480</x>
-      <y>340</y>
+      <y>350</y>
       <width>101</width>
-      <height>81</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="toolTip">
@@ -150,7 +150,7 @@
       <string>Swaps</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="compareRBtn">
+    <widget class="QRadioButton" name="comparisonRBtn">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -160,7 +160,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Comparissons</string>
+      <string>Comparisons</string>
      </property>
     </widget>
     <widget class="QCustomPlot" name="graphic" native="true">
@@ -186,18 +186,13 @@
     <property name="toolTip">
      <string>Algoritmo 1 a ser comparado</string>
     </property>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
    </widget>
    <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>400</y>
-      <width>321</width>
+      <width>441</width>
       <height>23</height>
      </rect>
     </property>
@@ -239,11 +234,25 @@
     <property name="toolTip">
      <string>Algoritmo 1 a ser comparado</string>
     </property>
-    <item>
-     <property name="text">
-      <string/>
-     </property>
-    </item>
+   </widget>
+   <widget class="QPushButton" name="cancelBtn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>480</x>
+      <y>390</y>
+      <width>101</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="toolTip">
+     <string>Comparar algoritmos selecionados</string>
+    </property>
+    <property name="text">
+     <string>Cancel</string>
+    </property>
    </widget>
    <zorder>graphicGroup</zorder>
    <zorder>alg1Label</zorder>
@@ -255,6 +264,7 @@
    <zorder>progressBar</zorder>
    <zorder>calcLabel</zorder>
    <zorder>algList2</zorder>
+   <zorder>cancelBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -269,10 +279,10 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="clearPlot"/>
-    <addaction name="saveastxt"/>
-    <addaction name="about_2"/>
-    <addaction name="exitAction_2"/>
+    <addaction name="clearGraphicOpt"/>
+    <addaction name="saveTxtOpt"/>
+    <addaction name="aboutOpt"/>
+    <addaction name="exitOpt"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -287,9 +297,9 @@
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="clearPlot">
+  <action name="clearGraphicOpt">
    <property name="text">
-    <string>Limpar Gráfico</string>
+    <string>Clear Graphic</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+L</string>
@@ -298,17 +308,17 @@
     <enum>Qt::WidgetShortcut</enum>
    </property>
   </action>
-  <action name="saveastxt">
+  <action name="saveTxtOpt">
    <property name="text">
-    <string>Salvar em Texto...</string>
+    <string>Save as Text</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="exitAction_2">
+  <action name="exitOpt">
    <property name="text">
-    <string>Sair</string>
+    <string>Exit</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
@@ -330,9 +340,9 @@
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="about_2">
+  <action name="aboutOpt">
    <property name="text">
-    <string>Sobre...</string>
+    <string>About</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>

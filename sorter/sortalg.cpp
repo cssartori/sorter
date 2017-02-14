@@ -6,11 +6,11 @@ SortAlg::SortAlg(){
     this->time = 0;
 }
 
-int SortAlg::getnSwaps(){
+unsigned int SortAlg::getnSwaps(){
     return this->nSwaps;
 }
 
-int SortAlg::getnComparisons(){
+unsigned int SortAlg::getnComparisons(){
     return this->nComparisons;
 }
 
