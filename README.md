@@ -1,6 +1,6 @@
-# **Sorter** #
+# Sorter
 
-This program implements several sorting methods, allowing the user to compare two different algorithms through three criteria: execution time, number of swaps and number of comparisons. The methods available are:
+This program implements a Graphical User Interface to compare several sorting methods. The user may analyze algorithms through three different criteria: total execution time, total number of swaps, and total number of comparisons. The sorting algorithms available are:
 
 1. Bubble Sort;
 2. Insertion Sort;
@@ -12,10 +12,10 @@ This program implements several sorting methods, allowing the user to compare tw
 
 After the calculations are done, a graphic is presented to better compare the results. One can also save the detailed results to a text file.
 
-## **Implementation** ##
+## Implementation
 
-Implemented in C++11, using Qt Creator to generate the GUI. The graphic plotting tool used is the QCustomPlot ([link](http://www.qcustomplot.com/)). It can be compiled both in Windows and Linux using Qt (> 4.0) tools.
+Implemented in C++11, using Qt Creator to generate the GUI. The graphic plotting tool used is the [QCustomPlot](http://www.qcustomplot.com/)). It can be compiled both in Windows and Linux using Qt (> 4.0) tools.
 
-## **About** ##
+## About
 
-Done for the INF01124 - Data Search and Classification discipline, 2013, at UFRGS.
+Done for the `INF01124 - Data Search and Classification` discipline, 2013, at UFRGS.
