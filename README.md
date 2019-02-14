@@ -14,7 +14,7 @@ After the calculations are done, a graphic is presented to better compare the re
 
 ## Implementation
 
-Implemented in C++11, using Qt Creator to generate the GUI. The graphic plotting tool used is the [QCustomPlot](http://www.qcustomplot.com/)). It can be compiled both in Windows and Linux using Qt (> 4.0) tools.
+Implemented in C++11, using Qt Creator to generate the GUI. The graphic plotting tool used is the [QCustomPlot](http://www.qcustomplot.com/). It can be compiled both in Windows and Linux using Qt (> 4.0) tools.
 
 ## About
 
